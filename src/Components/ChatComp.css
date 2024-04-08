@@ -110,7 +110,6 @@
 	width: 3%;
 	min-width: 30px;
 }
-/* Responsive styles */
 @media screen and (max-width: 768px) {
 	.ChatContainer {
 		padding: 10px;
