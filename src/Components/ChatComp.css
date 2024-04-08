@@ -1,0 +1,101 @@
+/* Default styles */
+.ChatContainer {
+	box-sizing: border-box;
+	width: 100%;
+	min-height: 100vh;
+	background-color: #f4f2fa;
+	display: flex;
+	flex-direction: column;
+	padding: 10px 30px;
+	overflow: hidden;
+}
+
+.ChatContainer > h3 {
+	color: #9785ba;
+	margin-top: 0;
+	margin-bottom: 20px;
+}
+
+.chatArea {
+	flex-grow: 1;
+	overflow-y: auto;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	height: calc(100vh - 150px);
+}
+
+.chatArea::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+}
+
+.newChat {
+	height: 100%;
+
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	gap: 20px;
+	padding: 20px;
+	padding-bottom: 60px;
+
+	border-radius: 8px;
+}
+
+.demoQuestions {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 20px;
+	width: 100%;
+	margin-top: 20px;
+}
+
+.question {
+	font-size: 0.8rem;
+	background-color: #fff;
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+	text-align: center;
+}
+
+.ask {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}
+
+.ask > input {
+	flex-grow: 1;
+	height: 25px;
+}
+
+.ask > button {
+	background-color: #d6c6f4;
+	border: none;
+	padding: 10px 20px;
+	text-align: center;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 4px;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+	.ChatContainer {
+		padding: 10px;
+	}
+
+	.ask > input {
+		width: 70%;
+	}
+
+	.demoQuestions {
+		grid-template-columns: 1fr;
+	}
+}
