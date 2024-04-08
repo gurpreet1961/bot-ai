@@ -1,219 +1,119 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import bot from "../Assests/bot.png";
 import user from "../Assests/user.png";
 import "./ChatComp.css";
+
+// Import data from data.json
+import data from "../data.json";
+import NewChatComponent from "./newChat";
+
 const ChatComp = () => {
+	const [messages, setMessages] = useState([]);
+	const [inputValue, setInputValue] = useState("");
+	const [pastConversations, setPastConversations] = useState([]);
+	const [showNewChat, setShowNewChat] = useState(false);
+	const chatEndRef = useRef(null);
+	useEffect(() => {
+		chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+	}, [messages]);
+	const sendMessage = () => {
+		if (inputValue.trim() === "") return;
+
+		const newMessages = [
+			...messages,
+			{
+				sender: "user",
+				message: inputValue,
+				time: new Date().toLocaleTimeString(),
+			},
+		];
+		setMessages(newMessages);
+		setInputValue("");
+
+		const question = inputValue.trim().toLowerCase();
+		const matchingQuestions = data.filter(
+			(item) => getSimilarity(question, item.question.toLowerCase()) >= 0.8
+		);
+		const answer =
+			matchingQuestions.length > 0
+				? matchingQuestions[0].response
+				: "As an AI Language Model, I don’t have the details.";
+
+		// Add bot reply to the list
+		setTimeout(() => {
+			const botMessage = {
+				sender: "bot",
+				message: answer,
+				time: new Date().toLocaleTimeString(),
+			};
+			setMessages([...newMessages, botMessage]);
+		}, 500);
+	};
+
+	// Function to calculate similarity between two strings
+	const getSimilarity = (str1, str2) => {
+		const similarity = str1
+			.split("")
+			.filter((char, index) => char === str2[index]).length;
+		return similarity / Math.max(str1.length, str2.length);
+	};
+	const saveChat = () => {
+		setPastConversations([...pastConversations, ...messages]);
+		setMessages([]);
+	};
+
+	const showPastConversations = () => {
+		setMessages([...pastConversations]);
+	};
+
+	const startNewChat = () => {
+		setShowNewChat(true);
+	};
+
 	return (
 		<div className="ChatContainer">
 			<h3>Bot AI</h3>
 			<div className="chatArea">
-				{/* <div className="newChat">
-					<div className="heading">
-						<h3>How Can I help You Today?</h3>
-						<img src={icon} alt="" />
+				{showNewChat || messages.length == 0 ? (
+					<NewChatComponent startNewChat={() => setShowNewChat(false)} />
+				) : (
+					<div className="chat">
+						{messages.map((msg, index) => (
+							<div key={index} className={`message ${msg.sender}`}>
+								{msg.sender === "user" ? (
+									<img src={user} alt="" />
+								) : (
+									<img src={bot} alt="" />
+								)}
+								<div className="content">
+									<h5>{msg.sender === "user" ? "You" : "Bot AI"}</h5>
+									<p>{msg.message}</p>
+									<p>{msg.time}</p>
+								</div>
+							</div>
+						))}
+						<div ref={chatEndRef} />
 					</div>
-					<div className="demoQuestions">
-						<div className="question">
-							<h3>Hi,What is the Weather</h3>
-							<p>Get immediate AI generated respone</p>
-						</div>
-						<div className="question">
-							<h3>Hi,What is the Weather</h3>
-							<p>Get immediate AI generated respone</p>
-						</div>
-						<div className="question">
-							<h3>Hi,What is the Weather</h3>
-							<p>Get immediate AI generated respone</p>
-						</div>
-						<div className="question">
-							<h3>Hi,What is the Weather</h3>
-							<p>Get immediate AI generated respone</p>
-						</div>
-					</div>
-				</div> */}
-				<div className="chat">
-					<div className="userQuestion">
-						<img src={user} alt="" />
-						<div className="div">
-							<h5>You</h5>
-							<p>Hi!</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="botReply">
-						<img src={bot} alt="" />
-						<div className="div">
-							<h5>Soul AI</h5>
-							<p>Hi There. How can I assist you today?</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="userQuestion">
-						<img src={user} alt="" />
-						<div className="div">
-							<h5>You</h5>
-							<p>Hi!</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="botReply">
-						<img src={bot} alt="" />
-						<div className="div">
-							<h5>Soul AI</h5>
-							<p>Hi There. How can I assist you today?</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="userQuestion">
-						<img src={user} alt="" />
-						<div className="div">
-							<h5>You</h5>
-							<p>Hi!</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="botReply">
-						<img src={bot} alt="" />
-						<div className="div">
-							<h5>Soul AI</h5>
-							<p>Hi There. How can I assist you today?</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="userQuestion">
-						<img src={user} alt="" />
-						<div className="div">
-							<h5>You</h5>
-							<p>Hi!</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="botReply">
-						<img src={bot} alt="" />
-						<div className="div">
-							<h5>Soul AI</h5>
-							<p>Hi There. How can I assist you today?</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="userQuestion">
-						<img src={user} alt="" />
-						<div className="div">
-							<h5>You</h5>
-							<p>Hi!</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="botReply">
-						<img src={bot} alt="" />
-						<div className="div">
-							<h5>Soul AI</h5>
-							<p>Hi There. How can I assist you today?</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="userQuestion">
-						<img src={user} alt="" />
-						<div className="div">
-							<h5>You</h5>
-							<p>Hi!</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="botReply">
-						<img src={bot} alt="" />
-						<div className="div">
-							<h5>Soul AI</h5>
-							<p>Hi There. How can I assist you today?</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="userQuestion">
-						<img src={user} alt="" />
-						<div className="div">
-							<h5>You</h5>
-							<p>Hi!</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="botReply">
-						<img src={bot} alt="" />
-						<div className="div">
-							<h5>Soul AI</h5>
-							<p>Hi There. How can I assist you today?</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="userQuestion">
-						<img src={user} alt="" />
-						<div className="div">
-							<h5>You</h5>
-							<p>Hi!</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="botReply">
-						<img src={bot} alt="" />
-						<div className="div">
-							<h5>Soul AI</h5>
-							<p>Hi There. How can I assist you today?</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="userQuestion">
-						<img src={user} alt="" />
-						<div className="div">
-							<h5>You</h5>
-							<p>Hi!</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="botReply">
-						<img src={bot} alt="" />
-						<div className="div">
-							<h5>Soul AI</h5>
-							<p>Hi There. How can I assist you today?</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="userQuestion">
-						<img src={user} alt="" />
-						<div className="div">
-							<h5>You</h5>
-							<p>Hi!</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="botReply">
-						<img src={bot} alt="" />
-						<div className="div">
-							<h5>Soul AI</h5>
-							<p>Hi There. How can I assist you today?</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="userQuestion">
-						<img src={user} alt="" />
-						<div className="div">
-							<h5>You</h5>
-							<p>Hi!</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-					<div className="botReply">
-						<img src={bot} alt="" />
-						<div className="div">
-							<h5>Soul AI</h5>
-							<p>Hi There. How can I assist you today?</p>
-							<p>10:33 AM</p>
-						</div>
-					</div>
-				</div>
+				)}
 			</div>
 			<div className="ask">
-				<input type="text" name="" id="" />
-				<button>Ask</button>
-				<button>Save</button>
+				<input
+					type="text"
+					value={inputValue}
+					onChange={(e) => setInputValue(e.target.value)}
+					placeholder="Type your question..."
+				/>
+				<button
+					onClick={() => {
+						sendMessage();
+						setShowNewChat(false);
+					}}
+				>
+					Ask
+				</button>
+				<button onClick={saveChat}>Save</button>
+				<button onClick={showPastConversations}>Past Conversations</button>
+				<button onClick={startNewChat}>New Chat</button>
 			</div>
 		</div>
 	);

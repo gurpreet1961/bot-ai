@@ -94,7 +94,7 @@
 	flex-direction: column;
 	gap: 20px;
 }
-.userQuestion,
+.message,
 .botReply {
 	display: flex;
 	width: 100%;
@@ -105,8 +105,8 @@
 	border-radius: 10px;
 	gap: 10px;
 }
-.userQuestion img,
-.botReply img {
+.message img,
+.message img {
 	width: 3%;
 	min-width: 30px;
 }
