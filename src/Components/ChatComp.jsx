@@ -1,5 +1,6 @@
 import React from "react";
-import icon from "../Assests/Icon.png";
+import bot from "../Assests/bot.png";
+import user from "../Assests/user.png";
 import "./ChatComp.css";
 const ChatComp = () => {
 	return (
@@ -30,7 +31,184 @@ const ChatComp = () => {
 						</div>
 					</div>
 				</div> */}
-				<div className="chat"></div>
+				<div className="chat">
+					<div className="userQuestion">
+						<img src={user} alt="" />
+						<div className="div">
+							<h5>You</h5>
+							<p>Hi!</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="botReply">
+						<img src={bot} alt="" />
+						<div className="div">
+							<h5>Soul AI</h5>
+							<p>Hi There. How can I assist you today?</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="userQuestion">
+						<img src={user} alt="" />
+						<div className="div">
+							<h5>You</h5>
+							<p>Hi!</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="botReply">
+						<img src={bot} alt="" />
+						<div className="div">
+							<h5>Soul AI</h5>
+							<p>Hi There. How can I assist you today?</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="userQuestion">
+						<img src={user} alt="" />
+						<div className="div">
+							<h5>You</h5>
+							<p>Hi!</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="botReply">
+						<img src={bot} alt="" />
+						<div className="div">
+							<h5>Soul AI</h5>
+							<p>Hi There. How can I assist you today?</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="userQuestion">
+						<img src={user} alt="" />
+						<div className="div">
+							<h5>You</h5>
+							<p>Hi!</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="botReply">
+						<img src={bot} alt="" />
+						<div className="div">
+							<h5>Soul AI</h5>
+							<p>Hi There. How can I assist you today?</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="userQuestion">
+						<img src={user} alt="" />
+						<div className="div">
+							<h5>You</h5>
+							<p>Hi!</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="botReply">
+						<img src={bot} alt="" />
+						<div className="div">
+							<h5>Soul AI</h5>
+							<p>Hi There. How can I assist you today?</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="userQuestion">
+						<img src={user} alt="" />
+						<div className="div">
+							<h5>You</h5>
+							<p>Hi!</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="botReply">
+						<img src={bot} alt="" />
+						<div className="div">
+							<h5>Soul AI</h5>
+							<p>Hi There. How can I assist you today?</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="userQuestion">
+						<img src={user} alt="" />
+						<div className="div">
+							<h5>You</h5>
+							<p>Hi!</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="botReply">
+						<img src={bot} alt="" />
+						<div className="div">
+							<h5>Soul AI</h5>
+							<p>Hi There. How can I assist you today?</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="userQuestion">
+						<img src={user} alt="" />
+						<div className="div">
+							<h5>You</h5>
+							<p>Hi!</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="botReply">
+						<img src={bot} alt="" />
+						<div className="div">
+							<h5>Soul AI</h5>
+							<p>Hi There. How can I assist you today?</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="userQuestion">
+						<img src={user} alt="" />
+						<div className="div">
+							<h5>You</h5>
+							<p>Hi!</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="botReply">
+						<img src={bot} alt="" />
+						<div className="div">
+							<h5>Soul AI</h5>
+							<p>Hi There. How can I assist you today?</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="userQuestion">
+						<img src={user} alt="" />
+						<div className="div">
+							<h5>You</h5>
+							<p>Hi!</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="botReply">
+						<img src={bot} alt="" />
+						<div className="div">
+							<h5>Soul AI</h5>
+							<p>Hi There. How can I assist you today?</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="userQuestion">
+						<img src={user} alt="" />
+						<div className="div">
+							<h5>You</h5>
+							<p>Hi!</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+					<div className="botReply">
+						<img src={bot} alt="" />
+						<div className="div">
+							<h5>Soul AI</h5>
+							<p>Hi There. How can I assist you today?</p>
+							<p>10:33 AM</p>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div className="ask">
 				<input type="text" name="" id="" />
