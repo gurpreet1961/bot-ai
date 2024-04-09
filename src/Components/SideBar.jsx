@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import icon from "../Assests/Icon.png";
 import edit from "../Assests/edit.png";
 import "./SideBar.css";
+import Hamburger from "./Hamburger";
 
-const SideBar = () => {
+const SideBar = ({ showPastConversations, startNewChat }) => {
 	const [showSidebar, setShowSidebar] = useState(false);
 
 	const toggleSidebar = () => {
@@ -13,20 +14,16 @@ const SideBar = () => {
 	return (
 		<div>
 			<div className={`aside ${showSidebar ? "show" : ""}`}>
-				<div className="profile-container">
+				<div className="profile-container" onClick={startNewChat}>
 					<img src={icon} alt="icon" className="icon" />
 					<h3>New Chat</h3>
 					<img src={edit} alt="" />
 				</div>
-				<div className="pastBtn">
+				<div className="pastBtn" onClick={showPastConversations}>
 					<h4>Past Conversations</h4>
 				</div>
 			</div>
-			<div className="hamburger" onClick={toggleSidebar}>
-				<div className="line"></div>
-				<div className="line"></div>
-				<div className="line"></div>
-			</div>
+			<Hamburger toggleSidebar={toggleSidebar} />
 		</div>
 	);
 };

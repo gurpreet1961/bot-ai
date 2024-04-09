@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import bot from "../Assests/bot.png";
 import user from "../Assests/user.png";
 import "./ChatComp.css";
-
-// Import data from data.json
+import SideBar from "./SideBar";
 import data from "../data.json";
 import NewChatComponent from "./newChat";
 
@@ -12,6 +11,7 @@ const ChatComp = () => {
 	const [inputValue, setInputValue] = useState("");
 	const [pastConversations, setPastConversations] = useState([]);
 	const [showNewChat, setShowNewChat] = useState(false);
+	const [isPastConvPage, setIsPastConvPage] = useState(false);
 	const chatEndRef = useRef(null);
 	useEffect(() => {
 		chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -39,7 +39,6 @@ const ChatComp = () => {
 				? matchingQuestions[0].response
 				: "As an AI Language Model, I don’t have the details.";
 
-		// Add bot reply to the list
 		setTimeout(() => {
 			const botMessage = {
 				sender: "bot",
@@ -50,7 +49,6 @@ const ChatComp = () => {
 		}, 500);
 	};
 
-	// Function to calculate similarity between two strings
 	const getSimilarity = (str1, str2) => {
 		const similarity = str1
 			.split("")
@@ -59,61 +57,77 @@ const ChatComp = () => {
 	};
 	const saveChat = () => {
 		setPastConversations([...pastConversations, ...messages]);
-		setMessages([]);
 	};
 
 	const showPastConversations = () => {
-		setMessages([...pastConversations]);
+		if (pastConversations.length > 0) {
+			setMessages([...pastConversations]);
+			setIsPastConvPage(true);
+		}
 	};
 
 	const startNewChat = () => {
 		setShowNewChat(true);
+		setIsPastConvPage(false);
+		setMessages([]);
 	};
 
 	return (
-		<div className="ChatContainer">
-			<h3>Bot AI</h3>
-			<div className="chatArea">
-				{showNewChat || messages.length == 0 ? (
-					<NewChatComponent startNewChat={() => setShowNewChat(false)} />
-				) : (
-					<div className="chat">
-						{messages.map((msg, index) => (
-							<div key={index} className={`message ${msg.sender}`}>
-								{msg.sender === "user" ? (
-									<img src={user} alt="" />
-								) : (
-									<img src={bot} alt="" />
-								)}
-								<div className="content">
-									<h5>{msg.sender === "user" ? "You" : "Bot AI"}</h5>
-									<p>{msg.message}</p>
-									<p>{msg.time}</p>
+		<div className="container">
+			<SideBar
+				showPastConversations={showPastConversations}
+				startNewChat={startNewChat}
+			/>
+			<div className="ChatContainer">
+				<h3>Bot AI</h3>
+				<div className="chatArea">
+					{(showNewChat || messages.length == 0) & !isPastConvPage ? (
+						<NewChatComponent startNewChat={() => setShowNewChat(false)} />
+					) : (
+						<div className="chat">
+							{messages.map((msg, index) => (
+								<div key={index} className={`message ${msg.sender}`}>
+									{msg.sender === "user" ? (
+										<img src={user} alt="" />
+									) : (
+										<img src={bot} alt="" />
+									)}
+									<div className="content">
+										<h5>{msg.sender === "user" ? "You" : "Bot AI"}</h5>
+										<p>{msg.message}</p>
+										<p>{msg.time}</p>
+									</div>
 								</div>
-							</div>
-						))}
-						<div ref={chatEndRef} />
-					</div>
+							))}
+							<div ref={chatEndRef} />
+						</div>
+					)}
+				</div>
+				{!isPastConvPage && (
+					<form
+						onSubmit={(e) => {
+							e.preventDefault();
+						}}
+						className="ask"
+					>
+						<input
+							type="text"
+							value={inputValue}
+							onChange={(e) => setInputValue(e.target.value)}
+							placeholder="Type your question..."
+						/>
+						<button
+							type="submit"
+							onClick={() => {
+								sendMessage();
+								setShowNewChat(false);
+							}}
+						>
+							Ask
+						</button>
+						<button onClick={saveChat}>Save</button>
+					</form>
 				)}
-			</div>
-			<div className="ask">
-				<input
-					type="text"
-					value={inputValue}
-					onChange={(e) => setInputValue(e.target.value)}
-					placeholder="Type your question..."
-				/>
-				<button
-					onClick={() => {
-						sendMessage();
-						setShowNewChat(false);
-					}}
-				>
-					Ask
-				</button>
-				<button onClick={saveChat}>Save</button>
-				<button onClick={showPastConversations}>Past Conversations</button>
-				<button onClick={startNewChat}>New Chat</button>
 			</div>
 		</div>
 	);

@@ -1,6 +1,6 @@
 import React from "react";
 import icon from "../Assests/Icon.png";
-// import "./NewChatComponent.css";
+import DemoQuestion from "./DemoQuestion";
 
 const NewChatComponent = ({ startNewChat }) => {
 	return (
@@ -10,22 +10,10 @@ const NewChatComponent = ({ startNewChat }) => {
 				<img src={icon} alt="" />
 			</div>
 			<div className="demoQuestions">
-				<div className="question">
-					<h3>Hi,What is the Weather</h3>
-					<p>Get immediate AI generated response</p>
-				</div>
-				<div className="question">
-					<h3>Hi,What is the Weather</h3>
-					<p>Get immediate AI generated response</p>
-				</div>
-				<div className="question">
-					<h3>Hi,What is the Weather</h3>
-					<p>Get immediate AI generated response</p>
-				</div>
-				<div className="question">
-					<h3>Hi,What is the Weather</h3>
-					<p>Get immediate AI generated response</p>
-				</div>
+				<DemoQuestion question={"Hi,What is the Weather"} />
+				<DemoQuestion question={"Hi, what is my location"} />
+				<DemoQuestion question={"Hi, what is the temperature"} />
+				<DemoQuestion question={"Hi, how are you"} />
 			</div>
 		</div>
 	);

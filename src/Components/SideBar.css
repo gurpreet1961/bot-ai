@@ -10,6 +10,7 @@
 	z-index: 1;
 }
 .profile-container {
+	cursor: pointer;
 	width: 100%;
 	display: flex;
 	justify-content: space-evenly;
@@ -20,6 +21,7 @@
 	width: 50px;
 }
 .pastBtn {
+	cursor: pointer;
 	background-color: #d7c7f4;
 	border-radius: 10px;
 	padding: 10px;
